@@ -91,7 +91,7 @@ python3 tests/run_tests.py # 单元/集成测试
 | 宿主 | 依赖 QQ 客户端注入 | **不注入微信**，由「驱动」决定微信侧怎么来 |
 | 协议 | OneBot 11 | OneBot 11（同一套 WS/HTTP 语义） |
 | 配置 | 账号级 JSON + WebUI | `config/onebot11.json` / `wechat.json` / `webui.json` |
-| WebUI | 有 | 有，苹果（macOS）风格 |
+| WebUI | 有 | 有 |
 | 对接客户端 | OneBot 适配器 | 任意 OneBot 11 客户端（ws / ws-reverse / http） |
 
 **它不是**一个从零逆向的微信协议端。微信没有像 QQ 那样容易 hook 的公开客户端，所以本项目把「微信怎么连」抽象成驱动：
