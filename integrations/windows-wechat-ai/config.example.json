@@ -1,0 +1,8 @@
+{
+  "gateway": "http://127.0.0.1:9002",
+  "token": "",
+  "poll_wait": 25,
+  "request_timeout": 15,
+  "account_nickname": "微信 AI",
+  "log_file": "agent.log"
+}
