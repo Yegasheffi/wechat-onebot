@@ -33,7 +33,6 @@ Windows 10/11
 - Koishi / 其它 OneBot 客户端如果也在 Windows，连 `ws://127.0.0.1:3001/onebot`
 - 全程不需要 Mac、不需要 Docker、不需要协议服务
 
-Windows 一体化包见交付目录下的 `wechat-onebot-windows-*`（`setup-windows.bat` + `start-all.bat`）。
 
 ## 快速使用
 
