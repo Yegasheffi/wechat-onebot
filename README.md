@@ -323,7 +323,7 @@ python3 tests/run_tests.py # 单元/集成测试
 
 ### 1. `mock`（默认，无需微信）
 
-- 内置好友（小爱、阿波）与「微信测试群」，可在 `wechat.mock.friends` / `wechat.mock.groups` 里改
+- 内置好友与「微信测试群」，可在 `wechat.mock.friends` / `wechat.mock.groups` 里改
 - 支持收发文本/图片标记、群管理（禁言、踢人、名片、群名等）
 - 终端控制台：`g <群> <内容>`、`f <好友> <内容>`、`ls`、`help`
 - WebUI「消息模拟」与它共用一套数据
