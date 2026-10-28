@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="light dark" />
+<title>wechat-onebot</title>
+<link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+<div class="wallpaper" aria-hidden="true">
+  <span class="blob blob-a"></span>
+  <span class="blob blob-b"></span>
+  <span class="blob blob-c"></span>
+</div>
+
+<div class="window" id="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.3 9.2 9.2 0 0 1-2.6-.4L5 21l1.4-4a8.1 8.1 0 0 1-1.9-5.5A8.4 8.4 0 0 1 13 3.2a8.4 8.4 0 0 1 8 8.3Z"/>
+          <circle cx="9.2" cy="11.4" r=".9" fill="currentColor" stroke="none"/>
+          <circle cx="13.2" cy="11.4" r=".9" fill="currentColor" stroke="none"/>
+          <circle cx="17.2" cy="11.4" r=".9" fill="currentColor" stroke="none"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <strong>微信 OneBot</strong>
+        <span>wechat-onebot</span>
+      </div>
+    </div>
+
+    <nav class="nav" id="nav">
+      <button class="nav-item active" data-view="overview">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg>
+        <span>概览</span>
+      </button>
+      <button class="nav-item" data-view="login">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="8.5" r="3.6"/><path d="M11.2 11.2 20 20M17 17l2-2M14 14l2-2"/></svg>
+        <span>微信登录</span>
+      </button>
+      <button class="nav-item" data-view="simulator">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12a8 8 0 0 1-8 8H5l-1.5-3.5A8 8 0 1 1 12.5 4a8 8 0 0 1 8 8Z"/><path d="M8.5 11.5h.01M12.5 11.5h.01M16.5 11.5h.01"/></svg>
+        <span>消息模拟</span>
+      </button>
+      <button class="nav-item" data-view="config">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2.2"/><circle cx="9" cy="17" r="2.2"/></svg>
+        <span>网络配置</span>
+      </button>
+      <button class="nav-item" data-view="logs">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="3"/><path d="m7.5 10 2.5 2-2.5 2M12.5 14h4"/></svg>
+        <span>运行日志</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <span class="status-dot" id="side-dot"></span>
+      <div class="sidebar-status">
+        <strong id="side-state">连接中…</strong>
+        <span id="side-account">—</span>
+      </div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <header class="toolbar">
+      <div class="toolbar-title">
+        <h1 id="view-title">概览</h1>
+        <p id="view-subtitle">微信账号的 OneBot 11 网关</p>
+      </div>
+      <div class="toolbar-actions">
+        <button class="icon-button" id="refresh-button" title="刷新">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a8 8 0 1 0-2.3 5.6"/><path d="M20 4.5v6h-6"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="views">
+      <!-- 概览 -->
+      <section class="view active" data-view-panel="overview">
+        <div class="cards">
+          <article class="card hero">
+            <div class="hero-main">
+              <div class="avatar" id="hero-avatar">微</div>
+              <div class="hero-text">
+                <h2 id="hero-name">—</h2>
+                <p id="hero-id">—</p>
+              </div>
+            </div>
+            <div class="hero-meta">
+              <span class="pill" id="pill-login" hidden>未登录</span>
+              <span class="pill" id="pill-driver">驱动 —</span>
+              <span class="pill" id="pill-uptime">运行 —</span>
+              <span class="pill" id="pill-version">v—</span>
+            </div>
+          </article>
+
+          <div class="stat-grid">
+            <article class="card stat">
+              <span class="stat-label">已连接客户端</span>
+              <strong class="stat-value" id="stat-clients">0</strong>
+              <span class="stat-hint" id="stat-clients-hint">WebSocket</span>
+            </article>
+            <article class="card stat">
+              <span class="stat-label">收到消息</span>
+              <strong class="stat-value" id="stat-recv">0</strong>
+              <span class="stat-hint">条</span>
+            </article>
+            <article class="card stat">
+              <span class="stat-label">发出消息</span>
+              <strong class="stat-value" id="stat-sent">0</strong>
+              <span class="stat-hint">条</span>
+            </article>
+            <article class="card stat">
+              <span class="stat-label">缓存消息</span>
+              <strong class="stat-value" id="stat-cache">0</strong>
+              <span class="stat-hint" id="stat-cache-hint">条</span>
+            </article>
+          </div>
+
+          <article class="card">
+            <div class="card-head">
+              <h3>接入 OneBot 客户端</h3>
+              <span class="badge">OneBot 11</span>
+            </div>
+            <p class="muted">在任意支持 OneBot 11 的客户端或框架里，协议选 <strong>ws</strong>（本程序作服务端），或选 <strong>ws-reverse</strong>（本程序反向连接客户端）。</p>
+            <div class="endpoint-list" id="endpoint-list">
+              <div class="endpoint empty">正在读取…</div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-head">
+              <h3>在线连接</h3>
+              <span class="badge subtle" id="client-count-badge">0</span>
+            </div>
+            <div class="client-list" id="client-list">
+              <p class="muted">暂无客户端连接</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+
+      <!-- 微信登录 -->
+      <section class="view" data-view-panel="login">
+        <div class="cards">
+          <article class="card">
+            <div class="card-head">
+              <h3>扫码登录微信</h3>
+              <span class="badge subtle" id="login-badge">未登录</span>
+            </div>
+            <div class="login-layout">
+              <div class="qr-column">
+                <div class="qr-frame" id="qr-frame">
+                  <img id="qr-image" alt="微信登录二维码" hidden />
+                  <div class="qr-placeholder" id="qr-placeholder">
+                    <span>点击「获取二维码」<br />用手机微信扫码登录</span>
+                  </div>
+                </div>
+                <div class="qr-meta">
+                  <span class="status-dot" id="login-dot"></span>
+                  <span id="login-status">未登录</span>
+                  <span class="muted small" id="login-countdown"></span>
+                </div>
+                <div class="qr-actions">
+                  <button class="button primary" id="qr-refresh">获取二维码</button>
+                  <button class="button ghost" id="login-logout" disabled>退出登录</button>
+                </div>
+              </div>
+              <div class="login-info">
+                <div class="login-account">
+                  <div class="avatar" id="login-avatar">微</div>
+                  <div class="login-account-text">
+                    <h4 id="login-nickname">未登录</h4>
+                    <p class="muted" id="login-wxid">扫码后显示账号信息</p>
+                  </div>
+                  <button class="button mini" id="login-copy-wxid" hidden>复制 wxid</button>
+                </div>
+                <ol class="login-steps">
+                  <li>在手机上打开微信，点右上角「+」→「扫一扫」</li>
+                  <li>扫描二维码，并在手机上点击「登录」</li>
+                  <li>状态变成「已登录」后，回到「概览」复制 WS 地址填入客户端</li>
+                </ol>
+                <div class="login-hints">
+                  <p class="muted small" id="login-hint">登录成功后 wxid 会写入 config/wechat.json，下次启动自动登录。</p>
+                  <p class="muted small">协议服务：<code id="login-service">—</code></p>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 消息模拟 -->
+      <section class="view" data-view-panel="simulator">
+        <div class="simulator" id="simulator">
+          <aside class="sim-sidebar">
+            <div class="sim-sidebar-head">选择一个会话</div>
+            <div class="sim-chat-list" id="sim-chat-list">
+              <p class="muted small">正在读取 mock 数据…</p>
+            </div>
+          </aside>
+          <div class="sim-main">
+            <header class="sim-header">
+              <strong id="sim-title">—</strong>
+              <span id="sim-subtitle" class="muted small">—</span>
+            </header>
+            <div class="bubbles" id="bubbles">
+              <div class="empty-state">
+                <span class="empty-icon">💬</span>
+                <p>选一个会话，然后在这里冒充群友/好友发消息</p>
+              </div>
+            </div>
+            <form class="composer" id="composer">
+              <input id="sim-input" type="text" autocomplete="off" placeholder="输入消息，回车发送…" disabled />
+              <button type="submit" class="send-button" disabled aria-label="发送">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- 配置 -->
+      <section class="view" data-view-panel="config">
+        <div class="cards">
+          <article class="card">
+            <div class="card-head">
+              <h3>配置文件</h3>
+              <span class="badge subtle" id="config-path">config/</span>
+            </div>
+            <div class="segmented config-tabs" id="config-tabs">
+              <button data-config="onebot11" class="active">onebot11.json</button>
+              <button data-config="wechat">wechat.json</button>
+              <button data-config="webui">webui.json</button>
+            </div>
+            <textarea id="config-editor" spellcheck="false" class="editor"></textarea>
+            <div class="editor-footer">
+              <p class="muted small" id="config-hint">保存后，网络监听端点的改动需要重启进程生效。</p>
+              <div class="editor-actions">
+                <button class="button ghost" id="config-reload">撤销</button>
+                <button class="button primary" id="config-save">保存</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 日志 -->
+      <section class="view" data-view-panel="logs">
+        <article class="card logs-card">
+          <div class="card-head">
+            <h3>实时日志</h3>
+            <label class="switch">
+              <input type="checkbox" id="autoscroll" checked />
+              <span class="slider"></span>
+              <span class="switch-label">自动滚动</span>
+            </label>
+          </div>
+          <div class="log-view" id="log-view"></div>
+        </article>
+      </section>
+    </div>
+  </main>
+</div>
+
+<!-- 登录 -->
+<div class="login-mask" id="login-mask">
+  <form class="login-card" id="login-form">
+    <div class="login-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="4.5" y="10" width="15" height="10" rx="3"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10"/></svg>
+    </div>
+    <h2>进入控制台</h2>
+    <p>请输入 <code>config/webui.json</code> 里的登录令牌</p>
+    <input id="login-token" type="password" autocomplete="current-password" placeholder="登录令牌" />
+    <button type="submit" class="button primary wide">进入</button>
+    <small id="login-error"></small>
+  </form>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="/app.js"></script>
+</body>
+</html>

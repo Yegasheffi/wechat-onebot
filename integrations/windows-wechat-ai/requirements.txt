@@ -1,0 +1,1 @@
+wechatauto-replica>=1.2.8.1
